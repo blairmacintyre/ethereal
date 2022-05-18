@@ -1,4 +1,4 @@
-import { ClampToEdgeWrapping, CompressedTexture, DoubleSide, LinearMipMapLinearFilter, Matrix4, Mesh, MeshBasicMaterial, MeshDepthMaterial, Object3D, PlaneGeometry, RGBADepthPacking, Vector3, VideoTexture, Texture, TextureLoader, CanvasTexture } from "three";
+import { ClampToEdgeWrapping, CompressedTexture, DoubleSide, LinearFilter, LinearMipMapLinearFilter, Matrix4, Mesh, MeshBasicMaterial, MeshDepthMaterial, Object3D, PlaneGeometry, RGBADepthPacking, Vector3, VideoTexture, Texture, TextureLoader, CanvasTexture } from "three";
 import { WebLayer } from "../core/WebLayer";
 import { WebRenderer } from "../core/WebRenderer";
 import { Bounds, Edges } from "../core/dom-utils";
@@ -122,7 +122,7 @@ export class WebLayer3D extends Object3D {
             new TextureLoader().load( (media as HTMLImageElement).src )
         t.wrapS = ClampToEdgeWrapping
         t.wrapT = ClampToEdgeWrapping
-        t.minFilter = LinearMipMapLinearFilter
+        t.minFilter = _layer.isVideoElement ? LinearFilter : LinearMipMapLinearFilter
         if (manager.textureEncoding) t.encoding = manager.textureEncoding
         this._mediaTexture = t
       }
